@@ -12,7 +12,7 @@ import RootLayout from './_root/RootLayout';
                 {/**public routing */}
                 <Route element={<AuthLayout/>}>
                 <Route path='/sign-in' element={<SignInForm/>}/>
-                <Route path='/sign-in' element={<SignUpForm/>}/>
+                <Route path='/sign-up' element={<SignUpForm/>}/>
                 </Route>
                 {/**private routing */}
                 <Route element={< RootLayout/>}>
