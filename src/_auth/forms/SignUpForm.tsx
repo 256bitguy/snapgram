@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod";
- 
 import {Form,FormControl,FormDescription,FormField,FormItem,FormLabel,FormMessage,} from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
 import {Button} from "../../components/ui/button";
@@ -8,10 +7,12 @@ import { useForm } from "react-hook-form";
 import { SignUpValidation } from "../../lib/validation/index";
 import Loader from "../../components/ui/shared/Loader";
 import { Link } from "react-router-dom";
+import { createUserAccount } from "../../lib/appwrite/api";
  
  
 const SignUpForm = () => {
-  const isLoading=true;
+  const isLoading=false;
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignUpValidation>>({
     resolver: zodResolver(SignUpValidation),
@@ -24,9 +25,8 @@ const SignUpForm = () => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignUpValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+ async function onSubmit(values: z.infer<typeof SignUpValidation>) {
+     const newUser=await createUserAccount(values)
     console.log(values)
   }
   return (
@@ -102,7 +102,8 @@ const SignUpForm = () => {
           }
         </Button>
         <p className="text-small-regular text-light-2 text-center mt-2">
-          <Link to="/sign-in" className="text-primary-500">Log in
+         Already have an account?
+          <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1">Log in
           </Link>
         </p>
       </form>
